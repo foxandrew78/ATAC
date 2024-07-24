@@ -1,0 +1,31 @@
+@use "@angular/material" as mat;
+
+@mixin colour($theme) {
+  .header-container {
+    mat-toolbar {
+      background: linear-gradient(
+        to right,
+        mat.get-theme-color($theme, primary) 30%,
+        mat.get-theme-color($theme, primary, 20)
+      );
+      color: mat.get-theme-color($theme, on-primary);
+      mat-toolbar-row:nth-of-type(even) {
+        background: mat.get-theme-color($theme, secondary, 30);
+        color: mat.get-theme-color($theme, on-secondary);
+      }
+    }
+  }
+}
+
+@mixin typography($theme) {
+  .header-container {
+    mat-toolbar {
+      .sar-next {
+        font: mat.get-theme-typography($theme, headline-large);
+      }
+      mat-toolbar-row:last-of-type {
+        font: mat.get-theme-typography($theme, body-large);
+      }
+    }
+  }
+}

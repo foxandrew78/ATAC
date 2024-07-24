@@ -1,0 +1,55 @@
+@use "../shared/styles/shared-variables" as vars;
+$padding-right: 0.2em;
+.header-container {
+  height: vars.$header-height;
+  mat-toolbar {
+    height: 100%;
+    mat-toolbar-row:first-of-type {
+      height: 70%;
+    }
+    mat-toolbar-row:last-of-type {
+      height: 30%;
+    }
+  }
+  box-shadow: 0px 5px 12px 0px rgba(50, 50, 50, 0.5);
+}
+.spacer {
+  flex: 1 1 auto;
+}
+
+.logo {
+  height: 80%;
+}
+
+.sar-next {
+  display: flex;
+  padding-right: $padding-right;
+  .big-and-red {
+    color: red;
+    font-size: 1.3em;
+    font-family: "Montez", cursive;
+    transform: rotate(14deg);
+    font-weight: 900;
+  }
+}
+
+.button-row {
+  //padding-right: $padding-right;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  column-gap: 10px;
+  justify-self: end;
+  grid-column-start: 3;
+}
+.nav-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.links {
+  display: flex;
+  grid-column: 1;
+  align-items: center;
+  // /justify-self: center;
+  font-size: 1em;
+}

@@ -1,0 +1,8 @@
+@use "@angular/material" as mat;
+
+@mixin colour($theme) {
+  .INTC-sidenav {
+    background-color: mat.get-theme-color($theme, primary);
+    color: mat.get-theme-color($theme, on-primary);
+  }
+}

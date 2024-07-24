@@ -1,0 +1,10 @@
+@use "../shared/styles/shared-variables" as vars;
+
+.sidenav-container {
+  padding: 1rem;
+  padding-top: 2rem;
+  min-height: calc(100vh - vars.$header-height);
+}
+.sidenav {
+  padding: inherit;
+}

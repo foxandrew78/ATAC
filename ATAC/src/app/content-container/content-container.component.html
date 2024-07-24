@@ -1,0 +1,16 @@
+<mat-sidenav-container
+  class="sidenav-container"
+  (backdropClick)="onCloseSideNav('backdrop')"
+>
+  <mat-sidenav
+    mode="over"
+    position="end"
+    [opened]="sidebarStatus()"
+    class="sidenav INTC-sidenav"
+    (keydown.escape)="onCloseSideNav('esc')"
+    >SETTINGS</mat-sidenav
+  >
+  <mat-sidenav-content>
+    <div>CONTENT GOES HERE</div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
