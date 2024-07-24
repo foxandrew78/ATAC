@@ -1,1 +1,4 @@
-$header-height: 130px;
+$header-height: 120px;
+
+$brand-bar-height: calc($header-height * 0.7);
+$navbar-height: calc($header-height * 0.3);

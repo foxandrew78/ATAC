@@ -3,6 +3,7 @@
   (backdropClick)="onCloseSideNav('backdrop')"
 >
   <mat-sidenav
+    fixedInViewport="true"
     mode="over"
     position="end"
     [opened]="sidebarStatus()"
@@ -11,6 +12,6 @@
     >SETTINGS</mat-sidenav
   >
   <mat-sidenav-content>
-    <div>CONTENT GOES HERE</div>
+    <div><router-outlet /></div>
   </mat-sidenav-content>
 </mat-sidenav-container>

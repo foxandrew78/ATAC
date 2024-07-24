@@ -1,6 +1,7 @@
 @use "@angular/material" as mat;
 
 @mixin colour($theme) {
+  $accent: mat.get-theme-color($theme, tertiary, 60);
   .header-container {
     mat-toolbar {
       background: linear-gradient(
@@ -10,8 +11,25 @@
       );
       color: mat.get-theme-color($theme, on-primary);
       mat-toolbar-row:nth-of-type(even) {
-        background: mat.get-theme-color($theme, secondary, 30);
+        background: mat.get-theme-color($theme, secondary, 10);
         color: mat.get-theme-color($theme, on-secondary);
+      }
+    }
+    .sar-next {
+      .big-and-red {
+        color: $accent;
+      }
+    }
+    a {
+      color: mat.get-theme-color($theme, secondary, 90);
+      &:hover,
+      &:active {
+        //background-color: #9965dd;
+        color: mat.get-theme-color($theme, on-primary);
+      }
+      &.selected {
+        //background-color: #9965dd;
+        color: $accent;
       }
     }
   }
@@ -21,11 +39,16 @@
   .header-container {
     mat-toolbar {
       .sar-next {
-        font: mat.get-theme-typography($theme, headline-large);
+        font: mat.get-theme-typography($theme, display-small);
       }
       mat-toolbar-row:last-of-type {
         font: mat.get-theme-typography($theme, body-large);
       }
+    }
+    a {
+      font: inherit;
+      cursor: pointer;
+      text-decoration: none;
     }
   }
 }

@@ -1,0 +1,10 @@
+.button-row {
+  //padding-right: $padding-right;
+  display: grid;
+  grid-auto-flow: column;
+  //   grid-template-columns: repeat(5, auto);
+  column-gap: 7px;
+  justify-self: end;
+  //align-content: center;
+  grid-column-start: 3;
+}

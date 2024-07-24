@@ -1,0 +1,9 @@
+<div class="links">
+  @for (link of linksList(); track $index) {
+  <a [routerLink]="[link.destination]" routerLinkActive="selected"
+    ><span>{{ link.text.toUpperCase() }}</span></a
+  >
+
+  @if ($index + 1 < linksList().length) {<span class="link-seperator">·</span>}
+  }
+</div>

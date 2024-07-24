@@ -1,0 +1,18 @@
+<div class="button-row">
+  @for (button of buttonList(); track $index) { @if (!button.openSidebar) { @if
+  (button.type === 'link') {
+  <a [routerLink]="[button.link]"
+    ><button mat-fab [disabled]="sideBarIsOpen()">
+      <mat-icon>{{ button.icon }}</mat-icon>
+    </button></a
+  >
+  } @else {
+  <button mat-fab [disabled]="sideBarIsOpen()">
+    <mat-icon>{{ button.icon }}</mat-icon>
+  </button>
+  } } @else {
+  <button mat-fab (click)="onToggleSidebar()" style="margin-left: 20px">
+    <mat-icon>{{ sideBarIsOpen() ? "close" : button.icon }}</mat-icon>
+  </button>
+  } }
+</div>

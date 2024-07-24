@@ -1,0 +1,14 @@
+app-nav-links {
+  display: grid;
+  grid-column: 1;
+  align-items: center;
+}
+app-button-bar {
+  display: grid;
+  grid-column: 3;
+}
+.nav-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}

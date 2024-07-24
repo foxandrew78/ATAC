@@ -1,39 +1,7 @@
 <div class="header-container">
   <mat-toolbar>
     <mat-toolbar-row>
-      <img src="images/logo-energyblue-white-72px.svg" class="logo" />
-      <!-- <img src="images/logo-classicblue-72px.svg" class="logo" /> -->
-      <div class="spacer"></div>
-      <div class="sar-next">
-        <span>SAR.NE</span>
-        <span class="big-and-red">X</span>
-        <span style="margin-left: -0.15em">T</span>
-      </div></mat-toolbar-row
-    ><mat-toolbar-row>
-      <div class="nav-wrapper">
-        <div class="links">
-          @for (link of linksList; track $index) {
-
-          {{ link.text.toUpperCase() }}
-
-          @if ($index + 1 < linksList.length) {{{" · "}}} }
-        </div>
-
-        <div class="button-row">
-          <button mat-fab [disabled]="sideBarIsOpen()">
-            <mat-icon>home</mat-icon>
-          </button>
-          <button mat-fab [disabled]="sideBarIsOpen()">
-            <mat-icon>save</mat-icon>
-          </button>
-          <button mat-fab [disabled]="sideBarIsOpen()">
-            <mat-icon>help</mat-icon>
-          </button>
-          <button mat-fab (click)="onToggleSidebar()">
-            <mat-icon>{{ sideBarIsOpen() ? "close" : "settings" }}</mat-icon>
-          </button>
-        </div>
-      </div>
-    </mat-toolbar-row></mat-toolbar
-  >
+      <app-branding-bar /> </mat-toolbar-row
+    ><mat-toolbar-row> <app-navbar /> </mat-toolbar-row
+  ></mat-toolbar>
 </div>

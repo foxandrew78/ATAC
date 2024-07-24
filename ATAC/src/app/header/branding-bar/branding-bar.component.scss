@@ -1,0 +1,18 @@
+@use "../../shared/styles/shared-variables" as vars;
+
+.brand-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: vars.$brand-bar-height;
+}
+
+app-intc-icon {
+  grid-column: 1;
+}
+app-sar-net-icon {
+  grid-column: 3;
+  justify-self: end;
+  align-self: center;
+  padding-right: 0.2em;
+}

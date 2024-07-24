@@ -2,9 +2,10 @@
 
 .sidenav-container {
   padding: 1rem;
-  padding-top: 2rem;
+  // padding-top: 2rem;
   min-height: calc(100vh - vars.$header-height);
 }
 .sidenav {
   padding: inherit;
+  padding-top: calc(vars.$header-height + 1rem);
 }
