@@ -2,12 +2,12 @@
   @for (button of buttonList(); track $index) { @if (!button.openSidebar) { @if
   (button.type === 'link') {
   <a [routerLink]="[button.link]"
-    ><button mat-fab [disabled]="sideBarIsOpen()">
+    ><button mat-fab [hidden]="sideBarIsOpen()">
       <mat-icon>{{ button.icon }}</mat-icon>
     </button></a
   >
   } @else {
-  <button mat-fab [disabled]="sideBarIsOpen()">
+  <button mat-fab [hidden]="sideBarIsOpen()">
     <mat-icon>{{ button.icon }}</mat-icon>
   </button>
   } } @else {
