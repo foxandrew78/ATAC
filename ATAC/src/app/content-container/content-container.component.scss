@@ -1,11 +1,17 @@
 @use "../shared/styles/shared-variables" as vars;
 
 .sidenav-container {
-  padding: 1rem;
-  // padding-top: 2rem;
+  padding-left: 3em;
+  padding-right: 3em;
   min-height: calc(100vh - vars.$header-height);
 }
 .sidenav {
-  padding: inherit;
+  padding-left: 1em;
+  padding-right: 1em;
   padding-top: calc(vars.$header-height + 1rem);
+  width: 35%;
+}
+
+.ARCC {
+  background-color: aqua;
 }

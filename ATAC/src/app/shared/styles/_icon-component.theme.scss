@@ -1,0 +1,10 @@
+@use "@angular/material" as mat;
+
+@mixin colour($theme) {
+  .error {
+    @include mat.icon-color($theme, $color-variant: error);
+  }
+  .header-buttons {
+    @include mat.icon-color($theme, $color-variant: secondary);
+  }
+}
