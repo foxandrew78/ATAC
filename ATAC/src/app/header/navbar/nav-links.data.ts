@@ -10,7 +10,7 @@ export const LINKS_LIST: linksList[] = [
 
 export const BUTTON_LIST: buttonList[] = [
   { type: 'link', icon: 'home', link: '/' },
-  { type: 'action', icon: 'save' },
+  { type: 'action', icon: 'search' },
   { type: 'link', icon: 'people', link: '/passdown' },
   { type: 'openSidebar', icon: 'list', contentToShow: 'links' },
   { type: 'openSidebar', icon: 'settings', contentToShow: 'settings' },
