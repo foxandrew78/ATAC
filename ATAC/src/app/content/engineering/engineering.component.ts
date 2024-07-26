@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { lorumIpsum } from '../shared/utilities/text-generator';
+import { lorumIpsum } from '../../shared/utilities/text-generator';
 
 @Component({
   selector: 'app-engineering',
