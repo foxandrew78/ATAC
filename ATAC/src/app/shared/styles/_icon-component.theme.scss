@@ -1,10 +1,26 @@
 @use "@angular/material" as mat;
 
 @mixin colour($theme) {
-  .error {
-    @include mat.icon-color($theme, $color-variant: error);
-  }
+  //? fab-color for FAB buttons
+  //@include mat.fab-color($theme, $color-variant: primary);
+  //? button-color for regular buttons
+  //@include mat.button-color($theme, $color-variant: primary);
+
   .header-buttons {
-    @include mat.icon-color($theme, $color-variant: secondary);
+    &.primary {
+      @include mat.icon-color($theme, $color-variant: primary);
+    }
+    &.secondary {
+      @include mat.icon-color($theme, $color-variant: secondary);
+    }
+    &.tertiary {
+      @include mat.icon-color($theme, $color-variant: tertiary);
+    }
+    &.error {
+      @include mat.icon-color($theme, $color-variant: error);
+    }
+    .close-button {
+      @include mat.icon-color($theme, $color-variant: error);
+    }
   }
 }
