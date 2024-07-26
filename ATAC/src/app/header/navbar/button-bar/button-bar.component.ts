@@ -18,6 +18,7 @@ export class ButtonBarComponent {
   sideBarIsOpen = this.sideBarService.sideBarIsOpen;
 
   buttonList = input.required<buttonList[]>();
+  iconColour = input<'primary' | 'secondary' | 'tertiary' | 'error'>();
 
   onToggleSidebar = () => {
     this.sideBarService.toggleSidebar('button');

@@ -1,4 +1,4 @@
-<div class="button-row header-buttons">
+<div [class]="['button-row', 'header-buttons', iconColour()]">
   @for (button of buttonList(); track $index) { @if (!button.openSidebar) { @if
   (button.type === 'link') {
   <a [routerLink]="[button.link]"
@@ -12,7 +12,7 @@
   </button>
   } } @else {
   <button mat-mini-fab (click)="onToggleSidebar()" style="margin-left: 20px">
-    <mat-icon [class.error]="sideBarIsOpen()">{{
+    <mat-icon [class.close-button]="sideBarIsOpen()">{{
       sideBarIsOpen() ? "close" : button.icon
     }}</mat-icon>
   </button>
