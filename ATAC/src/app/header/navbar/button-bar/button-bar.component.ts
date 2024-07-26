@@ -20,7 +20,10 @@ export class ButtonBarComponent {
   buttonList = input.required<buttonList[]>();
   iconColour = input<'primary' | 'secondary' | 'tertiary' | 'error'>();
 
-  onToggleSidebar = () => {
-    this.sideBarService.toggleSidebar('button');
+  onOpenSidebar = (contentToShow: 'settings' | 'links') => {
+    this.sideBarService.openSidebar(contentToShow);
+  };
+  onCloseSidebar = () => {
+    this.sideBarService.closeSidebar();
   };
 }

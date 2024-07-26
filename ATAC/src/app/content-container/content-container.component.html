@@ -1,6 +1,6 @@
 <mat-sidenav-container
   class="sidenav-container"
-  (backdropClick)="onCloseSideNav('backdrop')"
+  (backdropClick)="onCloseSideNav()"
 >
   <mat-sidenav
     fixedInViewport="true"
@@ -8,9 +8,18 @@
     position="end"
     [opened]="sidebarStatus()"
     class="sidenav INTC-sidenav"
-    (keydown.escape)="onCloseSideNav('esc')"
-    ><app-settings
-  /></mat-sidenav>
+    (keydown.escape)="onCloseSideNav()"
+  >
+    <div class="close-button-container">
+      <app-button-bar
+        [buttonList]="[{ type: 'closeSidebar', icon: 'close' }]"
+      />
+    </div>
+    @switch (contentToShow()) { @case ('settings') {<app-settings />} @case
+    ('links') {
+    <app-links-list />
+    } }
+  </mat-sidenav>
   <mat-sidenav-content>
     <div>
       <router-outlet />

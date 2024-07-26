@@ -1,0 +1,21 @@
+@for (link of linksList; track $index) {
+<li style="margin-bottom: 0.7em">
+  <a
+    [routerLink]="[
+      link.relativeTo
+        ? link.relativeTo
+        : currentRoute().slice(
+            1,
+            currentRoute().indexOf('/', 1) !== -1
+              ? currentRoute().indexOf('/', 1)
+              : undefined
+          ),
+      link.destination
+    ]"
+    routerLinkActive="selected"
+    (click)="onLinkClick()"
+  >
+    {{ link.text?.toUpperCase() }}
+  </a>
+</li>
+}

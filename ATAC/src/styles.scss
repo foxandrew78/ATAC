@@ -6,6 +6,7 @@
 @use "app/shared/styles/header-component.theme";
 @use "app/shared/styles/sidenav-component.theme";
 @use "app/shared/styles/icon-component.theme";
+
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
@@ -56,4 +57,19 @@ body {
   margin: 0;
   font-family: IntelOne BodyText, Roboto, "Helvetica Neue", sans-serif;
   font-size: 1.2rem;
+}
+a {
+  color: mat.get-theme-color($theme, secondary, 90);
+  &:hover,
+  &:active {
+    //background-color: #9965dd;
+    color: mat.get-theme-color($theme, on-primary);
+  }
+  &.selected {
+    //background-color: #9965dd;
+    color: mat.get-theme-color($theme, tertiary, 60);
+  }
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
 }

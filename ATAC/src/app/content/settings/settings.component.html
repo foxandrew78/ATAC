@@ -1,8 +1,0 @@
-<app-settings-container
-  [showDivider]="routesWithSettings.includes(currentRoute)"
->
-  @switch (currentRoute){ @case ('ATAC') {
-  <app-atac-settings />
-  } @default {} }
-</app-settings-container>
-<app-settings-container><app-generic-settings /></app-settings-container>

@@ -7,6 +7,7 @@ import { EngineeringComponent } from './content/engineering/engineering.componen
 
 export const routes: Routes = [
   { path: 'ATAC', component: ATACComponent },
+  { path: 'ATAC/new', component: ATACComponent },
   { path: 'ARCC', component: ARCCComponent },
   { path: 'passdown', component: PassdownComponent },
   { path: 'operations', component: OperationsComponent },

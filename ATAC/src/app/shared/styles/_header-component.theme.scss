@@ -1,7 +1,6 @@
 @use "@angular/material" as mat;
 
 @mixin colour($theme) {
-  $accent: mat.get-theme-color($theme, tertiary, 60);
   .header-container {
     mat-toolbar {
       background: linear-gradient(
@@ -17,19 +16,7 @@
     }
     .sar-next {
       .big-and-red {
-        color: $accent;
-      }
-    }
-    a {
-      color: mat.get-theme-color($theme, secondary, 90);
-      &:hover,
-      &:active {
-        //background-color: #9965dd;
-        color: mat.get-theme-color($theme, on-primary);
-      }
-      &.selected {
-        //background-color: #9965dd;
-        color: $accent;
+        color: mat.get-theme-color($theme, tertiary, 60);
       }
     }
   }
@@ -44,11 +31,6 @@
       mat-toolbar-row:last-of-type {
         font: mat.get-theme-typography($theme, body-large);
       }
-    }
-    a {
-      font: inherit;
-      cursor: pointer;
-      text-decoration: none;
     }
   }
 }

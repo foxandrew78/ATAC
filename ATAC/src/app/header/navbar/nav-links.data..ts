@@ -12,6 +12,6 @@ export const BUTTON_LIST: buttonList[] = [
   { type: 'link', icon: 'home', link: '/' },
   { type: 'action', icon: 'save' },
   { type: 'link', icon: 'people', link: '/passdown' },
-  { type: 'action', icon: 'help' },
-  { type: 'action', icon: 'settings', openSidebar: true },
+  { type: 'openSidebar', icon: 'list', contentToShow: 'links' },
+  { type: 'openSidebar', icon: 'settings', contentToShow: 'settings' },
 ];

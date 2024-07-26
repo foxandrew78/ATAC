@@ -1,0 +1,9 @@
+<app-settings-container
+  [showDivider]="routesWithSettings.includes(currentRoute().slice(1))"
+>
+  @switch (currentRoute().slice( 1, currentRoute().indexOf("/", 1) !== -1 ?
+  currentRoute().indexOf("/", 1) : undefined )){ @case ('ATAC') {
+  <app-atac-settings />
+  } @default {} }
+</app-settings-container>
+<app-settings-container><app-generic-settings /></app-settings-container>

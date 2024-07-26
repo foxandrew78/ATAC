@@ -4,8 +4,8 @@ export interface linksList {
 }
 
 export interface buttonList {
-  type: 'action' | 'link';
+  type: 'action' | 'link' | 'openSidebar' | 'closeSidebar';
   icon: string;
   link?: string;
-  openSidebar?: boolean;
+  contentToShow?: 'settings' | 'links';
 }

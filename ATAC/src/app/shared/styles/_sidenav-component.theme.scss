@@ -2,7 +2,7 @@
 
 @mixin colour($theme) {
   .INTC-sidenav {
-    background-color: mat.get-theme-color($theme, primary);
+    background-color: mat.get-theme-color($theme, primary, 30);
     color: mat.get-theme-color($theme, on-primary);
   }
 }

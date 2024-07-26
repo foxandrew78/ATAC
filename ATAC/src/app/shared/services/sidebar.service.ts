@@ -5,11 +5,17 @@ import { Injectable, signal } from '@angular/core';
 })
 export class SidebarService {
   private sidebarStatus = signal(false);
-  sideBarIsOpen = this.sidebarStatus.asReadonly();
+  private contentRequested = signal<'settings' | 'links'>('settings');
+  currentRoute = signal('');
 
-  toggleSidebar = (toggleMethod: 'button' | 'backdrop' | 'esc') => {
-    toggleMethod === 'button'
-      ? this.sidebarStatus.set(!this.sidebarStatus())
-      : this.sidebarStatus.set(false);
+  sideBarIsOpen = this.sidebarStatus.asReadonly();
+  contentToShow = this.contentRequested.asReadonly();
+
+  openSidebar = (contentToShow: 'settings' | 'links') => {
+    this.contentRequested.set(contentToShow);
+    this.sidebarStatus.set(true);
+  };
+  closeSidebar = () => {
+    this.sidebarStatus.set(false);
   };
 }

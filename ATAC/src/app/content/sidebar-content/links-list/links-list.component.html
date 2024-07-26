@@ -1,0 +1,10 @@
+<app-links-container>
+  @switch (currentRoute().slice( 1, currentRoute().indexOf("/", 1) !== -1 ?
+  currentRoute().indexOf("/", 1) : undefined )) { @case ('ATAC') {
+  <app-atac-links />
+  } @case ('ARCC') {
+  <app-arcc-links />
+  } @case ('passdown') {<app-passdown-links />} @default {
+  <p>There are no links to show</p>
+  } }
+</app-links-container>

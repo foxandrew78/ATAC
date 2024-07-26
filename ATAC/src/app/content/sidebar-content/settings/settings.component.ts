@@ -1,10 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
+import {
+  Component,
+  computed,
+  inject,
+  OnInit,
+  signal,
+  Signal,
+} from '@angular/core';
 import { AtacSettingsComponent } from './atac-settings/atac-settings.component';
 import { GenericSettingsComponent } from './generic-settings/generic-settings.component';
 import { PassdownSettingsComponent } from './passdown-settings/passdown-settings.component';
 import { SettingsContainerComponent } from './settings-container/settings-container.component';
+import { SidebarService } from '../../../shared/services/sidebar.service';
 
 @Component({
   selector: 'app-settings',
@@ -18,16 +24,8 @@ import { SettingsContainerComponent } from './settings-container/settings-contai
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
 })
-export class SettingsComponent implements OnInit {
-  router = new Router();
+export class SettingsComponent {
+  sideBarService = inject(SidebarService);
   routesWithSettings = ['ATAC'];
-  currentRoute: string = '';
-
-  ngOnInit() {
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        this.currentRoute = event.urlAfterRedirects.slice(1);
-      });
-  }
+  currentRoute = this.sideBarService.currentRoute;
 }

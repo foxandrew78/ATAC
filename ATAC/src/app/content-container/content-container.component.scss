@@ -10,8 +10,10 @@
   padding-right: 1em;
   padding-top: calc(vars.$header-height + 1rem);
   width: 35%;
+  min-width: 300px;
 }
-
-.ARCC {
-  background-color: aqua;
+.close-button-container {
+  display: grid;
+  justify-content: end;
+  overflow: hidden;
 }
