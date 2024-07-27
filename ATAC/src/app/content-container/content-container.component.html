@@ -22,7 +22,8 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <div>
-      <router-outlet />
+      @if (isLazyLoading) {<app-loading-placeholder /> } @else{
+      <router-outlet />}
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

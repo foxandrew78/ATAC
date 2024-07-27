@@ -11,6 +11,7 @@ import { GenericSettingsComponent } from './generic-settings/generic-settings.co
 import { PassdownSettingsComponent } from './passdown-settings/passdown-settings.component';
 import { SettingsContainerComponent } from './settings-container/settings-container.component';
 import { SidebarService } from '../../../shared/services/sidebar.service';
+import { LoadingPlaceholderComponent } from "../../../shared/components/loading-placeholder/loading-placeholder.component";
 
 @Component({
   selector: 'app-settings',
@@ -20,7 +21,8 @@ import { SidebarService } from '../../../shared/services/sidebar.service';
     GenericSettingsComponent,
     PassdownSettingsComponent,
     SettingsContainerComponent,
-  ],
+    LoadingPlaceholderComponent
+],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
 })

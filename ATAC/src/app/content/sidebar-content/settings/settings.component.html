@@ -1,9 +1,23 @@
 <app-settings-container
-  [showDivider]="routesWithSettings.includes(currentRoute().slice(1))"
+  [showDivider]="
+    routesWithSettings.includes(
+      currentRoute().slice(
+        1,
+        currentRoute().indexOf('/', 1) !== -1
+          ? currentRoute().indexOf('/', 1)
+          : undefined
+      )
+    )
+  "
 >
   @switch (currentRoute().slice( 1, currentRoute().indexOf("/", 1) !== -1 ?
-  currentRoute().indexOf("/", 1) : undefined )){ @case ('ATAC') {
-  <app-atac-settings />
-  } @default {} }
+  currentRoute().indexOf("/", 1) : undefined )){ @case ('ATAC') { @defer
+  {<app-atac-settings />}@loading(after 100ms; minimum 1s){
+  <app-loading-placeholder />
+  } } @default {} }
 </app-settings-container>
-<app-settings-container><app-generic-settings /></app-settings-container>
+<app-settings-container
+  >@defer{<app-generic-settings />}@loading(after 100ms; minimum 1s){
+  <app-loading-placeholder />
+  }</app-settings-container
+>

@@ -1,0 +1,9 @@
+@use "../../styles/shared-variables" as vars;
+
+.spinner-container {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  height: calc(70vh - vars.$header-height);
+  overflow: hidden;
+}

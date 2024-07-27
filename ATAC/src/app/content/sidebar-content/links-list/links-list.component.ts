@@ -6,6 +6,7 @@ import { AtacSettingsComponent } from '../settings/atac-settings/atac-settings.c
 import { ArccLinksComponent } from './arcc-links/arcc-links.component';
 import { AtacLinksComponent } from './atac-links/atac-links.component';
 import { PassdownLinksComponent } from './passdown-links/passdown-links.component';
+import { LoadingPlaceholderComponent } from '../../../shared/components/loading-placeholder/loading-placeholder.component';
 
 @Component({
   selector: 'app-links-list',
@@ -17,6 +18,7 @@ import { PassdownLinksComponent } from './passdown-links/passdown-links.componen
     ArccLinksComponent,
     AtacLinksComponent,
     PassdownLinksComponent,
+    LoadingPlaceholderComponent,
   ],
   templateUrl: './links-list.component.html',
   styleUrl: './links-list.component.scss',
