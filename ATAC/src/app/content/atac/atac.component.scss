@@ -1,19 +1,117 @@
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
 .demo-table {
+  width: 100%;
+  border: 5px var(--sys-primary) solid;
+
+}
+
+.demo-table-container {
   width: 100%;
 }
 
 .demo-button-container {
   padding-bottom: 16px;
   margin-top: 2em;
+  width: 100%;
 }
 
-.demo-button + .demo-button {
+.demo-button+.demo-button {
   margin-left: 8px;
 }
 
-.mat-column-symbol {
-  background-color: blueviolet;
-  color: white;
-  width: 2em;
-  text-align: center;
+.mat-column-level {
+  width: auto;
+  text-align: right;
+}
+
+.mat-column-device,
+.mat-column-date_opened,
+.mat-column-owner {
+  width: 1px;
+  white-space: nowrap;
+}
+
+.no-data {
+  background-color: var(--sys-error);
+  color: var(--sys-on-error);
+  font-size: 1.3em;
+}
+
+@mixin cell-border($border) {
+  #{$border}: 1px solid var(--sys-primary)
+}
+
+@mixin cell-padding {
+  padding: 1em;
+  padding-left: 1.2em;
+  padding-right: 1.2em;
+}
+
+td {
+  @include cell-padding();
+}
+
+th {
+  @include cell-padding();
+  white-space: nowrap;
+}
+
+
+td,
+th {
+  font-size: 1.15em;
+  // @include cell-border(border-left);
+  // @include cell-border(border-right);
+}
+
+.mat-mdc-header-row {
+  background-color: var(--sys-primary);
+  color: var(--sys-on-primary);
+  font-weight: bold;
+  // font-size: var(--sys-headline-large) ;
+}
+
+.mat-mdc-row {
+
+
+
+  td:last-of-type {
+    padding-right: 3em;
+    // @include cell-border(border-left);
+    border-right: none;
+
+  }
+
+  td:first-of-type {
+    // @include cell-border(border-right);
+    border-left: none;
+  }
+
+
+
+  background-color: var(--sys-secondary-fixed-dim);
+  color: var(--sys-on-secondary-fixed);
+
+  &:hover {
+    background-color: var(--sys-tertiary-fixed-dim);
+    color: var(--sys-on-tertiary-fixed);
+    cursor: pointer;
+    // font-weight: bold;
+  }
+
+  &:nth-child(odd) {
+    background-color: var(--sys-primary-container);
+    color: var(--sys-on-primary-container);
+
+    &:hover {
+      background-color: var(--sys-tertiary-fixed-dim);
+      color: var(--sys-on-tertiary-fixed);
+      cursor: pointer;
+      // font-weight: bold;
+    }
+  }
 }

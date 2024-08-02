@@ -6,6 +6,7 @@
 @use "app/shared/styles/header-component.theme";
 @use "app/shared/styles/sidenav-component.theme";
 @use "app/shared/styles/icon-component.theme";
+@use "app/shared/styles/table-component.theme";
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -13,18 +14,13 @@
 @include mat.core();
 
 // Define the theme object.
-$ATAC-theme: mat.define-theme(
-  (
-    color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    density: (
-      scale: 0,
-    ),
-  )
-);
+$ATAC-theme: mat.define-theme((color: (theme-type: light,
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      density: (scale: 0,
+      ),
+    ));
 
 $theme: INTC-theme.$light-theme;
 $alternate: INTC-theme.$dark-theme;
@@ -34,11 +30,14 @@ $alternate: INTC-theme.$dark-theme;
 // that you are using.
 :root {
   @include mat.all-component-themes($theme);
+  @include mat.system-level-colors($theme);
+  @include mat.system-level-typography($theme);
   //@include mat.core-themes($alternate);
   @include header-component.colour($theme);
   @include header-component.typography($theme);
   @include sidenav-component.colour($theme);
   @include icon-component.colour($theme);
+  @include table-component.colour($theme);
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.
@@ -53,22 +52,27 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: IntelOne BodyText, Roboto, "Helvetica Neue", sans-serif;
   font-size: 1.2rem;
 }
+
 a {
   color: mat.get-theme-color($theme, secondary, 90);
+
   &:hover,
   &:active {
     //background-color: #9965dd;
     color: mat.get-theme-color($theme, on-primary);
   }
+
   &.selected {
     //background-color: #9965dd;
     color: mat.get-theme-color($theme, tertiary, 60);
   }
+
   font: inherit;
   cursor: pointer;
   text-decoration: none;

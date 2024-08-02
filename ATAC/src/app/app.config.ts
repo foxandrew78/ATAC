@@ -2,6 +2,7 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import {
   provideRouter,
   RouterModule,
+  withComponentInputBinding,
   withInMemoryScrolling,
   withRouterConfig,
 } from '@angular/router';
@@ -14,7 +15,8 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(
       routes,
-      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })
+      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
+      withComponentInputBinding()
     ),
     provideAnimationsAsync(),
   ],
