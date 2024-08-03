@@ -13,18 +13,13 @@
 @include mat.core();
 
 // Define the theme object.
-$ATAC-theme: mat.define-theme(
-  (
-    color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    density: (
-      scale: 0,
-    ),
-  )
-);
+$ATAC-theme: mat.define-theme((color: (theme-type: light,
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      density: (scale: 0,
+      ),
+    ));
 
 $theme: INTC-theme.$light-theme;
 $alternate: INTC-theme.$dark-theme;
@@ -33,8 +28,18 @@ $alternate: INTC-theme.$dark-theme;
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 :root {
-  @include mat.all-component-themes($theme);
-  //@include mat.core-themes($alternate);
+  //@include mat.all-component-themes($theme);
+  @include mat.system-level-colors($theme);
+  @include mat.system-level-typography($theme);
+
+  @include mat.core-theme($theme);
+  @include mat.button-theme($theme);
+  @include mat.fab-theme($theme);
+  @include mat.form-field-theme($theme);
+  @include mat.table-theme($theme);
+  @include mat.progress-spinner-theme($theme);
+  @include mat.tooltip-theme($theme);
+
   @include header-component.colour($theme);
   @include header-component.typography($theme);
   @include sidenav-component.colour($theme);
@@ -53,22 +58,27 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: IntelOne BodyText, Roboto, "Helvetica Neue", sans-serif;
   font-size: 1.2rem;
 }
+
 a {
   color: mat.get-theme-color($theme, secondary, 90);
+
   &:hover,
   &:active {
     //background-color: #9965dd;
     color: mat.get-theme-color($theme, on-primary);
   }
+
   &.selected {
     //background-color: #9965dd;
     color: mat.get-theme-color($theme, tertiary, 60);
   }
+
   font: inherit;
   cursor: pointer;
   text-decoration: none;
