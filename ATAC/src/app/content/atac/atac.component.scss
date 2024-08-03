@@ -4,13 +4,15 @@
 }
 
 .demo-table {
-  width: 100%;
+  width: 1000%;
   border: 5px var(--sys-primary) solid;
 
 }
 
 .demo-table-container {
   width: 100%;
+  overflow-y: hidden;
+
 }
 
 .demo-button-container {
@@ -30,7 +32,8 @@
 
 .mat-column-device,
 .mat-column-date_opened,
-.mat-column-owner {
+.mat-column-owner,
+.mat-column-expand {
   width: 1px;
   white-space: nowrap;
 }
@@ -96,12 +99,15 @@ th {
   background-color: var(--sys-secondary-fixed-dim);
   color: var(--sys-on-secondary-fixed);
 
+
   &:hover {
     background-color: var(--sys-tertiary-fixed-dim);
     color: var(--sys-on-tertiary-fixed);
     cursor: pointer;
     // font-weight: bold;
   }
+
+
 
   &:nth-child(odd) {
     background-color: var(--sys-primary-container);
@@ -111,7 +117,19 @@ th {
       background-color: var(--sys-tertiary-fixed-dim);
       color: var(--sys-on-tertiary-fixed);
       cursor: pointer;
-      // font-weight: bold;
     }
   }
+}
+
+
+@media (min-width: 1200px) {
+  .demo-table-container {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+
+
 }

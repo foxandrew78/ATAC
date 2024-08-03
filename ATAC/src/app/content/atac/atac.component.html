@@ -7,12 +7,15 @@
     Remove data
   </button>
 </div> -->
-<mat-form-field>
-  <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-</mat-form-field>
+
+
+
 
 <div class="demo-table-container">
+  <mat-form-field>
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Search detail or device" #input>
+  </mat-form-field>
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
     <!-- Position Column -->
     <ng-container matColumnDef="device">
@@ -42,9 +45,20 @@
       <th mat-header-cell *matHeaderCellDef>Detail</th>
       <td mat-cell *matCellDef="let element">{{ element.detail }}</td>
     </ng-container>
+    <ng-container matColumnDef="summary">
+      <th mat-header-cell *matHeaderCellDef>Summary</th>
+      <td mat-cell *matCellDef="let element">{{ element.summary }}</td>
+    </ng-container>
+
+
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row (click)="logTest(row.id)" *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <tr mat-row (click)="logTest(row.id)" *matRowDef="let row; columns: displayedColumns" #tooltip="matTooltip"
+      [matTooltip]="row.detail" matTooltipPosition="above" matTooltipShowDelay="500">
+    </tr>
+
+
     <tr class="mat-row" *matNoDataRow>
       <td class="mat-cell no-data" [attr.colspan]="displayedColumns.length">We cannot find any data containing the value
         <strong>"{{input.value}}"</strong>
@@ -52,4 +66,8 @@
     </tr>
 
   </table>
+  @if (dataToDisplay.length > 10) {
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100]"
+    aria-label="Select page of users"></mat-paginator>
+  }
 </div>

@@ -9,6 +9,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { filter, Observable, ReplaySubject } from 'rxjs';
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatIconModule } from '@angular/material/icon';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import { TooltipPosition, MatTooltipModule } from '@angular/material/tooltip';
+import { B } from '@angular/cdk/keycodes';
 
 export interface PeriodicElement {
   name: string;
@@ -35,6 +46,7 @@ export interface ATAC {
   date_opened: Date;
   level: number;
   owner: string;
+  summary: string;
   detail: string;
 }
 const ATAC_DATA: ATAC[] = [
@@ -44,14 +56,16 @@ const ATAC_DATA: ATAC[] = [
     date_opened: new Date('2024-05-12 15:12'),
     level: 1,
     owner: 'Andrew Fox',
-    detail: 'POW4C issue - possible overheating?',
+    summary: 'POW4C issue - possible overheating?',
+    detail: 'There was a POW4C issue whilst OHV was travelling.',
   },
   {
     id: 456,
     device: 'OHV1259',
     date_opened: new Date('2024-07-17 23:43'),
     level: 1,
-    detail: 'Right guide roller stuck in position',
+    summary: 'Right guide roller stuck in position',
+    detail: 'Right guide roller did not move when requested to.',
     owner: 'Jeff Carter',
   },
   {
@@ -60,7 +74,8 @@ const ATAC_DATA: ATAC[] = [
     date_opened: new Date('2023-11-12 11:12'),
     level: 1,
     owner: 'Andrew Fox',
-    detail: 'CPU overheating',
+    summary: 'CPU overheating',
+    detail: 'Temperature sensor on CPU board triggering the overtemp circuit.',
   },
   {
     id: 1156,
@@ -68,7 +83,9 @@ const ATAC_DATA: ATAC[] = [
     date_opened: new Date('2022-01-17 21:43'),
     level: 2,
     owner: 'Andrew Fox',
-    detail: 'Left guide roller not switching',
+    summary: 'Left guide roller not switching',
+    detail:
+      'Guide roller on left hand side of OHV did not move when commanded to.',
   },
   {
     id: 321,
@@ -76,7 +93,8 @@ const ATAC_DATA: ATAC[] = [
     date_opened: new Date('2024-07-17 23:43'),
     level: 2,
     owner: 'Mark Duffy',
-    detail: 'JL toggling on/off unexpectedly',
+    summary: 'JL toggling on/off unexpectedly',
+    detail: 'JL sensor toggling while travelling on track',
   },
   {
     id: 763,
@@ -84,9 +102,11 @@ const ATAC_DATA: ATAC[] = [
     date_opened: new Date('2024-07-12 13:43'),
     level: 1,
     owner: 'Keith Howard',
-    detail: 'J4 position errors',
+    summary: 'J4 position errors',
+    detail:
+      'RM having issues when travelling between shelf 1-10-22 and port 6 (OHV port). MU shows J4 error.',
   },
-];
+].sort((a, b) => b.date_opened.getTime() - a.date_opened.getTime());
 
 @Component({
   selector: 'app-atac',
@@ -98,6 +118,9 @@ const ATAC_DATA: ATAC[] = [
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
+    MatPaginatorModule,
+    MatIconModule,
+    MatTooltipModule,
   ],
   providers: [
     {
@@ -107,26 +130,37 @@ const ATAC_DATA: ATAC[] = [
   ],
   templateUrl: './atac.component.html',
   styleUrl: './atac.component.scss',
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed,void', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition(
+        'expanded <=> collapsed',
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ),
+    ]),
+  ],
 })
 export class ATACComponent {
   private router = inject(Router);
 
-  displayedColumns: string[] = ['date_opened', 'device', 'detail'];
+  displayedColumns: string[] = ['date_opened', 'device', 'summary'];
+
+  expandedElement!: ATAC | null;
   dataToDisplay = [...ATAC_DATA];
 
   id = input<string>();
   dataSource = new MatTableDataSource<ATAC>(ATAC_DATA);
 
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
-    console.log(this.sort);
-  }
-
-  ngOnInit() {
+    this.dataSource.paginator = this.paginator;
     this.dataSource.filterPredicate = (data: ATAC, filter: string) =>
       data.device.toLowerCase().includes(filter) ||
+      data.summary.toLowerCase().includes(filter) ||
       data.detail.toLowerCase().includes(filter);
   }
 
@@ -149,6 +183,10 @@ export class ATACComponent {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }
 
