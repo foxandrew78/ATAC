@@ -13,7 +13,26 @@ export const routes: Routes = [
     path: 'ATAC/new',
     loadComponent: () =>
       import('./content/atac/atac.component').then((mod) => mod.ATACComponent),
-    title: titlePre + 'Creat a new ATAC',
+    title: titlePre + 'Create a new ATAC',
+  },
+  {
+    path: 'ATAC/modify',
+    pathMatch: 'full',
+    redirectTo: 'ATAC',
+  },
+  {
+    path: 'ATAC/:id',
+    loadComponent: () =>
+      import('./content/atac/atac-detail/atac-detail.component').then(
+        (mod) => mod.AtacDetailComponent
+      ),
+    title: titlePre + 'View ATAC',
+  },
+  {
+    path: 'ATAC/modify/:id',
+    loadComponent: () =>
+      import('./content/atac/atac.component').then((mod) => mod.ATACComponent),
+    title: titlePre + 'Modify ATAC',
   },
   {
     path: 'ARCC',

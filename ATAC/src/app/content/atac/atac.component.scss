@@ -1,0 +1,106 @@
+@mixin cell-border($border) {
+  #{$border}: 1px solid var(--sys-primary)
+}
+
+@mixin cell-padding {
+  padding: 0.5em;
+  padding-left: 1.2em;
+  padding-right: 1.2em;
+}
+
+.container {
+  width: 100%;
+  overflow-y: hidden;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-mdc-header-row {
+  background-color: var(--sys-primary);
+  color: var(--sys-on-primary);
+  font-weight: bold;
+}
+
+.mat-mdc-row {
+
+  &:nth-child(odd of .row-main),
+  &:nth-child(odd of .row-detail) {
+    background-color: var(--sys-secondary-fixed-dim);
+    color: var(--sys-on-secondary-fixed);
+  }
+
+  &:nth-child(even of .row-main),
+  &:nth-child(even of .row-detail) {
+    background-color: var(--sys-primary-container);
+    color: var(--sys-on-primary-container);
+  }
+
+  &:nth-child(even of .row-detail),
+  &:nth-child(odd of .row-detail) {
+    font-style: italic;
+  }
+
+  &.row-main {
+    &:hover {
+      color: #009dc8;
+      cursor: pointer;
+    }
+  }
+}
+
+.mat-column-level {
+  width: auto;
+  text-align: right;
+}
+
+.mat-column-device,
+.mat-column-date_opened,
+.mat-column-owner,
+.mat-column-expand {
+  width: 1px;
+  white-space: nowrap;
+}
+
+td,
+th {
+  font-size: 1.15em;
+}
+
+.no-data {
+  background-color: var(--sys-error);
+  color: var(--sys-on-error);
+  font-size: 1.3em;
+  @include cell-padding()
+}
+
+.row-main {
+  td {
+    @include cell-padding();
+    border-bottom-width: 0;
+  }
+}
+
+.row-detail {
+  height: 0;
+}
+
+.expanded-row-container {
+  overflow: hidden;
+  display: grid;
+}
+
+.button-wrapper {
+  margin-top: 2em;
+  justify-self: start;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

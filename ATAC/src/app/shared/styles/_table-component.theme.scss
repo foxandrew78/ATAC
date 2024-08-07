@@ -1,0 +1,17 @@
+@use '@angular/material' as mat;
+
+@mixin colour($theme) {
+
+    // --mat-table-header-headline-color: mat.get-theme-color($theme, on-secondary);
+
+    // --mat-table-background-color: hotpink;
+
+    --mat-sort-arrow-color: mat.get-theme-color($theme, on-primary);
+    ;
+}
+
+.mat-mdc-header {
+    background-color: --sys-error;
+    color: yellow;
+
+}
