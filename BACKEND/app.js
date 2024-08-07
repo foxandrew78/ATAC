@@ -22,7 +22,7 @@ app.get("/atac", async (req, res) => {
   await new Promise((resolve) => setTimeout(resolve, 3000));
 
   //! For demo purposes only - to check error handling on client side
-  // return res.status(500).json();
+  //return res.status(500).json();
 
   const fileContent = await fs.readFile("./data/atac.json");
 

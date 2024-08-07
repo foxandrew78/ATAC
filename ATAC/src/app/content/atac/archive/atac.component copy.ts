@@ -1,12 +1,12 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { DataSource } from '@angular/cdk/collections';
 import { DATE_PIPE_DEFAULT_OPTIONS, DatePipe } from '@angular/common';
 import {
-  AfterViewInit,
   Component,
   computed,
   DestroyRef,
   inject,
   input,
-  OnInit,
   signal,
   ViewChild,
 } from '@angular/core';
@@ -15,15 +15,10 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router } from '@angular/router';
-import { filter, last, Observable, ReplaySubject } from 'rxjs';
+import { filter, Observable, ReplaySubject } from 'rxjs';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
-
-import { MatTooltipModule, MatTooltip } from '@angular/material/tooltip';
-import { ATAC } from '../../shared/models/atac.model';
-import { AtacService } from '../../shared/services/atac.service';
-import { LoadingPlaceholderComponent } from '../../shared/components/loading-placeholder/loading-placeholder.component';
 import {
   animate,
   state,
@@ -31,7 +26,10 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { DATE_FORMAT, TIMEZONE } from '../../shared/localization/constants';
+import { TooltipPosition, MatTooltipModule } from '@angular/material/tooltip';
+import { ATAC } from '../../../shared/models/atac.model';
+import { AtacService } from '../../../shared/services/atac.service';
+import { LoadingPlaceholderComponent } from '../../../shared/components/loading-placeholder/loading-placeholder.component';
 
 @Component({
   selector: 'app-atac',
@@ -51,94 +49,59 @@ import { DATE_FORMAT, TIMEZONE } from '../../shared/localization/constants';
   providers: [
     {
       provide: DATE_PIPE_DEFAULT_OPTIONS,
-      useValue: { dateFormat: DATE_FORMAT, timezone: TIMEZONE },
+      useValue: { dateFormat: 'dd MMM yyyy', timezone: 'UTC' },
     },
-  ],
-  animations: [
-    trigger('detailExpand', [
-      state(
-        'collapsed,void',
-        style({ height: '0px', minHeight: '0', margin: 0, padding: 0 })
-      ),
-      state(
-        'expanded',
-        style({
-          height: '*',
-          paddingBottom: '1.2em',
-          paddingTop: '1.2em',
-          borderTop: '1px dashed',
-        })
-      ),
-      transition(
-        'expanded <=> collapsed',
-        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
-      ),
-    ]),
   ],
   templateUrl: './atac.component.html',
   styleUrl: './atac.component.scss',
 })
-export class ATACComponent implements AfterViewInit, OnInit {
+export class ATACComponent {
   private router = inject(Router);
   private atacService = inject(AtacService);
   private destroyRef = inject(DestroyRef);
-
-  dataSource = new MatTableDataSource<ATAC>([]);
-  displayedColumns: string[] = ['date_opened', 'device', 'summary'];
-  displayedColumnsWithExpand: string[] = [...this.displayedColumns, 'expand'];
+  ATAC_DATA = signal<ATAC[]>([]);
+  dataToDisplay = computed(() =>
+    [...this.ATAC_DATA()].sort(
+      (a, b) => Date.parse(b.date_opened) - Date.parse(a.date_opened)
+    )
+  );
+  dataSource = new MatTableDataSource<ATAC>();
 
   fetchingData = true;
-
-  id = input<string>();
-  expandedId = undefined;
-
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  fetchNewData() {
+  displayedColumnsWithExpand: any;
+  ngOnInit() {
     const subscription = this.atacService.loadOpenATACs().subscribe({
-      next: (data) => {
-        this.dataSource.data = data.sort(
+      error: (error: Error) => {
+        console.log(error);
+      },
+      next: (atacs) => {
+        this.ATAC_DATA.set(atacs);
+        this.dataSource.data = atacs.sort(
           (a, b) => Date.parse(b.date_opened) - Date.parse(a.date_opened)
         );
-        // this.dataSource.paginator.
-        localStorage.setItem('atacData', JSON.stringify(data));
-        localStorage.setItem('atacLastRefresh', new Date().toUTCString());
       },
       complete: () => {
+        //this.dataSource.data = this.dataToDisplay();
+
         this.fetchingData = false;
       },
     });
+
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     });
   }
 
-  ngOnInit() {
-    const localData = localStorage.getItem('atacData');
+  displayedColumns: string[] = ['date_opened', 'device', 'summary'];
 
-    const lastRefresh =
-      (Date.now() -
-        (localStorage.getItem('atacLastRefresh')
-          ? new Date(localStorage.getItem('atacLastRefresh')!).getTime()
-          : Date.now())) /
-      60000;
+  id = input<string>();
 
-    if (localData && lastRefresh < 20) {
-      this.dataSource.data = JSON.parse(localData);
-      this.fetchingData = false;
-    } else {
-      this.onRefresh();
-    }
-  }
-
-  onRefresh() {
-    this.fetchingData = true;
-    this.fetchNewData();
-  }
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
+
     this.dataSource.paginator = this.paginator;
     this.dataSource.filterPredicate = (data: ATAC, filter: string) =>
       data.device.toLowerCase().includes(filter) ||
@@ -146,7 +109,8 @@ export class ATACComponent implements AfterViewInit, OnInit {
       data.detail.toLowerCase().includes(filter);
   }
 
-  viewATAC(row: string) {
+  logTest(row: string) {
+    console.log(row);
     this.router.navigate([/ATAC/, row]);
   }
 

@@ -23,7 +23,9 @@ export const routes: Routes = [
   {
     path: 'ATAC/:id',
     loadComponent: () =>
-      import('./content/atac/atac.component').then((mod) => mod.ATACComponent),
+      import('./content/atac/atac-detail/atac-detail.component').then(
+        (mod) => mod.AtacDetailComponent
+      ),
     title: titlePre + 'View ATAC',
   },
   {
