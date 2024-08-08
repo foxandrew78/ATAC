@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { Router } from '@angular/router';
+import { Router, RouterLinkWithHref } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
@@ -82,7 +82,7 @@ export class ATACComponent implements AfterViewInit, OnInit {
   private atacService = inject(AtacService);
   private destroyRef = inject(DestroyRef);
 
-  dataSource = new MatTableDataSource<ATAC>([]);
+  dataSource = this.atacService.dataSource;
   displayedColumns: string[] = ['date_opened', 'device', 'summary'];
   displayedColumnsWithExpand: string[] = [...this.displayedColumns, 'expand'];
 
