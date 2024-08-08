@@ -2,7 +2,6 @@ import { DATE_PIPE_DEFAULT_OPTIONS, DatePipe } from '@angular/common';
 import {
   AfterViewInit,
   Component,
-  computed,
   DestroyRef,
   inject,
   input,
@@ -15,12 +14,10 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router } from '@angular/router';
-import { filter, last, Observable, ReplaySubject } from 'rxjs';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 
-import { MatTooltipModule, MatTooltip } from '@angular/material/tooltip';
 import { ATAC } from '../../shared/models/atac.model';
 import { AtacService } from '../../shared/services/atac.service';
 import { LoadingPlaceholderComponent } from '../../shared/components/loading-placeholder/loading-placeholder.component';
@@ -45,7 +42,6 @@ import { DATE_FORMAT, TIMEZONE } from '../../shared/localization/constants';
     MatInputModule,
     MatPaginatorModule,
     MatIconModule,
-    MatTooltipModule,
     LoadingPlaceholderComponent,
   ],
   providers: [
@@ -87,26 +83,31 @@ export class ATACComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['date_opened', 'device', 'summary'];
   displayedColumnsWithExpand: string[] = [...this.displayedColumns, 'expand'];
 
-  fetchingData = true;
+  fetchingData = signal<boolean>(true);
+  backendError = signal<string>('');
 
   id = input<string>();
-  expandedId = undefined;
+  expandedId?: number;
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   fetchNewData() {
     const subscription = this.atacService.loadOpenATACs().subscribe({
+      error: (error: Error) => {
+        this.backendError.set(error.message);
+        this.fetchingData.set(false);
+      },
       next: (data) => {
         this.dataSource.data = data.sort(
           (a, b) => Date.parse(b.date_opened) - Date.parse(a.date_opened)
         );
-        // this.dataSource.paginator.
         localStorage.setItem('atacData', JSON.stringify(data));
         localStorage.setItem('atacLastRefresh', new Date().toUTCString());
       },
       complete: () => {
-        this.fetchingData = false;
+        this.backendError.set('');
+        this.fetchingData.set(false);
       },
     });
     this.destroyRef.onDestroy(() => {
@@ -126,14 +127,14 @@ export class ATACComponent implements AfterViewInit, OnInit {
 
     if (localData && lastRefresh < 20) {
       this.dataSource.data = JSON.parse(localData);
-      this.fetchingData = false;
+      this.fetchingData.set(false);
     } else {
       this.onRefresh();
     }
   }
 
   onRefresh() {
-    this.fetchingData = true;
+    this.fetchingData.set(true);
     this.fetchNewData();
   }
 

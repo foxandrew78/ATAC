@@ -22,7 +22,22 @@ export class AtacService {
       .pipe(
         map((resData) => resData.atac),
         catchError((error) => {
-          return throwError(() => new Error(errorMessage));
+          console.log(error);
+          let errorText: string;
+
+          switch (error.status) {
+            case 500:
+              errorText = errorMessage;
+              break;
+            case 401:
+              errorText = 'You are not authorised to access that.';
+              break;
+            default:
+              errorText =
+                'There is an error on the server. Please try again later.';
+              break;
+          }
+          return throwError(() => new Error(errorText));
         })
       );
   };
