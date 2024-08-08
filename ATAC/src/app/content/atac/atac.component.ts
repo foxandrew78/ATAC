@@ -1,4 +1,4 @@
-import { DATE_PIPE_DEFAULT_OPTIONS, DatePipe } from '@angular/common';
+import { DATE_PIPE_DEFAULT_OPTIONS, DatePipe, NgClass } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -29,6 +29,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { DATE_FORMAT, TIMEZONE } from '../../shared/localization/constants';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-atac',
@@ -43,6 +44,8 @@ import { DATE_FORMAT, TIMEZONE } from '../../shared/localization/constants';
     MatPaginatorModule,
     MatIconModule,
     LoadingPlaceholderComponent,
+    NgClass,
+    ReactiveFormsModule,
   ],
   providers: [
     {
@@ -85,6 +88,7 @@ export class ATACComponent implements AfterViewInit, OnInit {
 
   fetchingData = signal<boolean>(true);
   backendError = signal<string>('');
+  searchATAC = new FormControl('');
 
   id = input<string>();
   expandedId?: number;
@@ -108,6 +112,7 @@ export class ATACComponent implements AfterViewInit, OnInit {
       complete: () => {
         this.backendError.set('');
         this.fetchingData.set(false);
+        this.searchATAC.enable();
       },
     });
     this.destroyRef.onDestroy(() => {
@@ -135,7 +140,9 @@ export class ATACComponent implements AfterViewInit, OnInit {
 
   onRefresh() {
     this.fetchingData.set(true);
+    this.searchATAC.disable();
     this.fetchNewData();
+    this.onClearSearch();
   }
 
   ngAfterViewInit() {
@@ -158,5 +165,10 @@ export class ATACComponent implements AfterViewInit, OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  onClearSearch() {
+    this.dataSource.filter = '';
+    this.searchATAC.setValue('');
   }
 }

@@ -1,3 +1,5 @@
+$highlight-color: #009dc8;
+
 @mixin cell-border($border) {
   #{$border}: 1px solid var(--sys-primary)
 }
@@ -10,7 +12,37 @@
 
 .container {
   width: 100%;
-  overflow-y: hidden;
+  overflow: hidden;
+}
+
+.header-container {
+  margin-top: 2.5em;
+  margin-bottom: 1.5em;
+}
+
+.search-bar {
+  width: 100%;
+}
+
+.title-bar {
+  padding: 0;
+  padding-left: 0.5em;
+  //padding-right: 0.5em;
+  // text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  //padding-top: .5em;
+  //padding-bottom: .5em;
+  background-color: var(--sys-inverse-surface);
+  color: var(--sys-on-primary);
+
+}
+
+.title {
+  font-size: 1.3em;
+  text-transform: uppercase;
+  flex: 1;
 }
 
 .mat-mdc-form-field {
@@ -21,21 +53,23 @@
 .mat-mdc-header-row {
   background-color: var(--sys-primary);
   color: var(--sys-on-primary);
-  font-weight: bold;
+  // background-color: var(--sys-secondary-fixed-dim);
+  // color: var(--sys-on-secondary-fixed);
+  // font-weight: bold;
 }
 
 .mat-mdc-row {
 
   &:nth-child(odd of .row-main),
   &:nth-child(odd of .row-detail) {
-    background-color: var(--sys-secondary-fixed-dim);
-    color: var(--sys-on-secondary-fixed);
+    background-color: var(--sys-primary-container);
+    color: var(--sys-on-primary-container);
   }
 
   &:nth-child(even of .row-main),
   &:nth-child(even of .row-detail) {
-    background-color: var(--sys-primary-container);
-    color: var(--sys-on-primary-container);
+    background-color: var(--sys-secondary-fixed-dim);
+    color: var(--sys-on-secondary-fixed);
   }
 
   &:nth-child(even of .row-detail),
@@ -45,7 +79,7 @@
 
   &.row-main {
     &:hover {
-      color: #009dc8;
+      color: $highlight-color;
       cursor: pointer;
     }
   }
@@ -68,6 +102,7 @@ td,
 th {
   font-size: 1.15em;
 }
+
 
 .no-data {
   background-color: var(--sys-error);
@@ -106,6 +141,13 @@ th {
   align-content: center;
   justify-content: center;
   font-size: 1.2em;
+}
+
+.search-clear {
+  &:hover {
+    color: $highlight-color;
+    cursor: pointer;
+  }
 }
 
 @media (min-width: 1200px) {
