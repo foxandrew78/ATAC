@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/atac", async (req, res) => {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 
   //! For demo purposes only - to check error handling on client side
   //return res.status(401).json();
@@ -26,7 +26,28 @@ app.get("/atac", async (req, res) => {
 
   const atacData = JSON.parse(fileContent);
 
-  res.status(200).json({ atac: atacData });
+  // console.log(
+  //   atacData.filter((test) => {
+  //     return test.id;
+  //   })
+  // );
+
+  const atacSummaryData = atacData
+    .map((atac) => {
+      return {
+        date_opened: atac.date_opened,
+        device: atac.device,
+        id: atac.id,
+        status: atac.status,
+        detail: atac.detail,
+        problem_statement: atac.problem_statement,
+      };
+    })
+    .filter((atac) => {
+      return atac.status === "open";
+    });
+
+  res.status(200).json({ atac: atacSummaryData });
 });
 
 // 404

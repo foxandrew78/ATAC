@@ -83,7 +83,7 @@ export class ATACComponent implements AfterViewInit, OnInit {
   private destroyRef = inject(DestroyRef);
 
   dataSource = this.atacService.dataSource;
-  displayedColumns: string[] = ['date_opened', 'device', 'summary'];
+  displayedColumns: string[] = ['date_opened', 'device', 'problem_statement'];
   displayedColumnsWithExpand: string[] = [...this.displayedColumns, 'expand'];
 
   fetchingData = signal<boolean>(true);
@@ -150,7 +150,7 @@ export class ATACComponent implements AfterViewInit, OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.filterPredicate = (data: ATAC, filter: string) =>
       data.device.toLowerCase().includes(filter) ||
-      data.summary.toLowerCase().includes(filter) ||
+      data.problem_statement.toLowerCase().includes(filter) ||
       data.detail.toLowerCase().includes(filter);
   }
 
