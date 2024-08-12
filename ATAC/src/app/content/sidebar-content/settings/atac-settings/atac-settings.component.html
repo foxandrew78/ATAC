@@ -1,2 +1,6 @@
 <h3>ATAC settings</h3>
-<p>ATAC-specific settings will go here.</p>
+<form class="toggle-form" [formGroup]="formGroup">
+
+    <mat-slide-toggle (change)="onShowClosedToggle()" formControlName="enableClosed">Show Closed
+        ATACs</mat-slide-toggle>
+</form>

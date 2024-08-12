@@ -1,8 +1,7 @@
-import { DATE_PIPE_DEFAULT_OPTIONS, DatePipe } from '@angular/common';
+import { DATE_PIPE_DEFAULT_OPTIONS, DatePipe, NgClass } from '@angular/common';
 import {
   AfterViewInit,
   Component,
-  computed,
   DestroyRef,
   inject,
   input,
@@ -14,13 +13,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { Router } from '@angular/router';
-import { filter, last, Observable, ReplaySubject } from 'rxjs';
+import { Router, RouterLinkWithHref } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 
-import { MatTooltipModule, MatTooltip } from '@angular/material/tooltip';
 import { ATAC } from '../../shared/models/atac.model';
 import { AtacService } from '../../shared/services/atac.service';
 import { LoadingPlaceholderComponent } from '../../shared/components/loading-placeholder/loading-placeholder.component';
@@ -32,6 +29,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { DATE_FORMAT, TIMEZONE } from '../../shared/localization/constants';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-atac',
@@ -45,8 +43,9 @@ import { DATE_FORMAT, TIMEZONE } from '../../shared/localization/constants';
     MatInputModule,
     MatPaginatorModule,
     MatIconModule,
-    MatTooltipModule,
     LoadingPlaceholderComponent,
+    NgClass,
+    ReactiveFormsModule,
   ],
   providers: [
     {
@@ -83,30 +82,41 @@ export class ATACComponent implements AfterViewInit, OnInit {
   private atacService = inject(AtacService);
   private destroyRef = inject(DestroyRef);
 
-  dataSource = new MatTableDataSource<ATAC>([]);
-  displayedColumns: string[] = ['date_opened', 'device', 'summary'];
+  dataSource = this.atacService.dataSource;
+  displayedColumns: string[] = ['date_opened', 'device', 'problem_statement'];
   displayedColumnsWithExpand: string[] = [...this.displayedColumns, 'expand'];
 
-  fetchingData = true;
+  fetchingData = signal<boolean>(true);
+  backendError = signal<string>('');
+  searchATAC = new FormControl('');
 
   id = input<string>();
-  expandedId = undefined;
+  expandedId?: number;
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   fetchNewData() {
-    const subscription = this.atacService.loadOpenATACs().subscribe({
+    const loadFunction = this.atacService.getClosed
+      ? this.atacService.loadClosedATACs()
+      : this.atacService.loadOpenATACs();
+
+    const subscription = loadFunction.subscribe({
+      error: (error: Error) => {
+        this.backendError.set(error.message);
+        this.fetchingData.set(false);
+      },
       next: (data) => {
         this.dataSource.data = data.sort(
           (a, b) => Date.parse(b.date_opened) - Date.parse(a.date_opened)
         );
-        // this.dataSource.paginator.
         localStorage.setItem('atacData', JSON.stringify(data));
         localStorage.setItem('atacLastRefresh', new Date().toUTCString());
       },
       complete: () => {
-        this.fetchingData = false;
+        this.backendError.set('');
+        this.fetchingData.set(false);
+        this.searchATAC.enable();
       },
     });
     this.destroyRef.onDestroy(() => {
@@ -126,15 +136,17 @@ export class ATACComponent implements AfterViewInit, OnInit {
 
     if (localData && lastRefresh < 20) {
       this.dataSource.data = JSON.parse(localData);
-      this.fetchingData = false;
+      this.fetchingData.set(false);
     } else {
       this.onRefresh();
     }
   }
 
   onRefresh() {
-    this.fetchingData = true;
+    this.fetchingData.set(true);
+    this.searchATAC.disable();
     this.fetchNewData();
+    this.onClearSearch();
   }
 
   ngAfterViewInit() {
@@ -142,7 +154,7 @@ export class ATACComponent implements AfterViewInit, OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.filterPredicate = (data: ATAC, filter: string) =>
       data.device.toLowerCase().includes(filter) ||
-      data.summary.toLowerCase().includes(filter) ||
+      data.problem_statement.toLowerCase().includes(filter) ||
       data.detail.toLowerCase().includes(filter);
   }
 
@@ -157,5 +169,10 @@ export class ATACComponent implements AfterViewInit, OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  onClearSearch() {
+    this.dataSource.filter = '';
+    this.searchATAC.setValue('');
   }
 }

@@ -1,56 +1,62 @@
 [
-  {
-    "id": 123,
-    "device": "OHV123",
-    "date_opened": "2024-05-12T15:12:00.000Z",
-    "level": 1,
-    "owner": "Andrew Fox",
-    "summary": "POW4C issue - possible overheating?",
-    "detail": "There was a POW4C issue whilst OHV was travelling."
-  },
-  {
-    "id": 456,
-    "device": "OHV1259",
-    "date_opened": "2024-07-17T23:43:00.000Z",
-    "level": 1,
-    "summary": "Right guide roller stuck in position",
-    "detail": "Right guide roller did not move when requested to.",
-    "owner": "Jeff Carter"
-  },
-  {
-    "id": 1023,
-    "device": "OHV123",
-    "date_opened": "2023-11-12T11:12:00.000Z",
-    "level": 1,
-    "owner": "Andrew Fox",
-    "summary": "CPU overheating",
-    "detail": "Temperature sensor on CPU board triggering the overtemp circuit."
-  },
-  {
-    "id": 1156,
-    "device": "OHV1156",
-    "date_opened": "2022-01-17T21:43:00.000Z",
-    "level": 2,
-    "owner": "Andrew Fox",
-    "summary": "Left guide roller not switching",
-    "detail": "Guide roller on left hand side of OHV did not move when commanded to."
-  },
-  {
-    "id": 321,
-    "device": "VHL123",
-    "date_opened": "2024-07-17T23:43:00.000Z",
-    "level": 2,
-    "owner": "Mark Duffy",
-    "summary": "JL toggling on/off unexpectedly",
-    "detail": "JL sensor toggling while travelling on track"
-  },
-  {
-    "id": 763,
-    "device": "SSR123",
-    "date_opened": "2024-07-12T13:43:00.000Z",
-    "level": 1,
-    "owner": "Keith Howard",
-    "summary": "J4 position errors",
-    "detail": "RM having issues when travelling between shelf 1-10-22 and port 6 (OHV port). MU shows J4 error."
-  }
+    {
+        "id": 123,
+        "status": "open",
+        "device": "OHV123",
+        "date_opened": "2024-05-12T15:12:00.000Z",
+        "level": 1,
+        "owner": "Andrew Fox",
+        "problem_statement": "POW4C issue - possible overheating?",
+        "detail": "There was a POW4C issue whilst OHV was travelling."
+    },
+    {
+        "id": 456,
+        "status": "open",
+        "device": "OHV1259",
+        "date_opened": "2024-07-17T23:43:00.000Z",
+        "level": 1,
+        "problem_statement": "Right guide roller stuck in position",
+        "detail": "Right guide roller did not move when requested to.",
+        "owner": "Jeff Carter"
+    },
+    {
+        "id": 1023,
+        "status": "open",
+        "device": "OHV123",
+        "date_opened": "2023-11-12T11:12:00.000Z",
+        "level": 1,
+        "owner": "Andrew Fox",
+        "problem_statement": "CPU overheating",
+        "detail": "Temperature sensor on CPU board triggering the overtemp circuit."
+    },
+    {
+        "id": 1156,
+        "status": "closed",
+        "device": "OHV1156",
+        "date_opened": "2022-01-17T21:43:00.000Z",
+        "level": 2,
+        "owner": "Andrew Fox",
+        "problem_statement": "Left guide roller not switching",
+        "detail": "Guide roller on left hand side of OHV did not move when commanded to."
+    },
+    {
+        "id": 321,
+        "status": "closed",
+        "device": "VHL123",
+        "date_opened": "2024-07-17T23:43:00.000Z",
+        "level": 2,
+        "owner": "Mark Duffy",
+        "problem_statement": "JL toggling on/off unexpectedly",
+        "detail": "JL sensor toggling while travelling on track"
+    },
+    {
+        "id": 763,
+        "status": "closed",
+        "device": "SSR123",
+        "date_opened": "2024-07-12T13:43:00.000Z",
+        "level": 1,
+        "owner": "Keith Howard",
+        "problem_statement": "J4 position errors",
+        "detail": "RM having issues when travelling between shelf 1-10-22 and port 6 (OHV port). MU shows J4 error."
+    }
 ]

@@ -4,8 +4,6 @@ import bodyParser from "body-parser";
 import express from "express";
 
 const app = express();
-
-//app.use(express.static("images"));
 app.use(bodyParser.json());
 
 // CORS
@@ -19,72 +17,35 @@ app.use((req, res, next) => {
 });
 
 app.get("/atac", async (req, res) => {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 
   //! For demo purposes only - to check error handling on client side
-  //return res.status(500).json();
+  //return res.status(401).json();
 
   const fileContent = await fs.readFile("./data/atac.json");
 
   const atacData = JSON.parse(fileContent);
+  const { getClosed } = req.query;
 
-  res.status(200).json({ atac: atacData });
+  console.log(getClosed);
+
+  const atacSummaryData = atacData
+    .map((atac) => {
+      return {
+        date_opened: atac.date_opened,
+        device: atac.device,
+        id: atac.id,
+        status: atac.status,
+        detail: atac.detail,
+        problem_statement: atac.problem_statement,
+      };
+    })
+    .filter((atac) => {
+      return getClosed ? atac.status === "closed" : atac.status === "open";
+    });
+
+  res.status(200).json({ atac: atacSummaryData });
 });
-
-// app.get("/user-places", async (req, res) => {
-//   const fileContent = await fs.readFile("./data/user-places.json");
-
-//   const places = JSON.parse(fileContent);
-
-//   res.status(200).json({ places });
-// });
-
-// app.put("/user-places", async (req, res) => {
-//   const placeId = req.body.placeId;
-
-//   const fileContent = await fs.readFile("./data/places.json");
-//   const placesData = JSON.parse(fileContent);
-
-//   const place = placesData.find((place) => place.id === placeId);
-
-//   const userPlacesFileContent = await fs.readFile("./data/user-places.json");
-//   const userPlacesData = JSON.parse(userPlacesFileContent);
-
-//   let updatedUserPlaces = userPlacesData;
-
-//   if (!userPlacesData.some((p) => p.id === place.id)) {
-//     updatedUserPlaces = [...userPlacesData, place];
-//   }
-
-//   await fs.writeFile(
-//     "./data/user-places.json",
-//     JSON.stringify(updatedUserPlaces)
-//   );
-
-//   res.status(200).json({ userPlaces: updatedUserPlaces });
-// });
-
-// app.delete("/user-places/:id", async (req, res) => {
-//   const placeId = req.params.id;
-
-//   const userPlacesFileContent = await fs.readFile("./data/user-places.json");
-//   const userPlacesData = JSON.parse(userPlacesFileContent);
-
-//   const placeIndex = userPlacesData.findIndex((place) => place.id === placeId);
-
-//   let updatedUserPlaces = userPlacesData;
-
-//   if (placeIndex >= 0) {
-//     updatedUserPlaces.splice(placeIndex, 1);
-//   }
-
-//   await fs.writeFile(
-//     "./data/user-places.json",
-//     JSON.stringify(updatedUserPlaces)
-//   );
-
-//   res.status(200).json({ userPlaces: updatedUserPlaces });
-// });
 
 // 404
 app.use((req, res, next) => {
