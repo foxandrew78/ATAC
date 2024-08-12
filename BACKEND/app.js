@@ -25,12 +25,9 @@ app.get("/atac", async (req, res) => {
   const fileContent = await fs.readFile("./data/atac.json");
 
   const atacData = JSON.parse(fileContent);
+  const { getClosed } = req.query;
 
-  // console.log(
-  //   atacData.filter((test) => {
-  //     return test.id;
-  //   })
-  // );
+  console.log(getClosed);
 
   const atacSummaryData = atacData
     .map((atac) => {
@@ -44,7 +41,7 @@ app.get("/atac", async (req, res) => {
       };
     })
     .filter((atac) => {
-      return atac.status === "open";
+      return getClosed ? atac.status === "closed" : atac.status === "open";
     });
 
   res.status(200).json({ atac: atacSummaryData });
