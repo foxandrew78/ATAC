@@ -3,20 +3,20 @@
 @mixin colour($theme) {
   .header-container {
     mat-toolbar {
-      background: linear-gradient(
-        to right,
-        mat.get-theme-color($theme, primary) 30%,
-        mat.get-theme-color($theme, primary, 20)
-      );
+      background: linear-gradient(to right,
+          mat.get-theme-color($theme, primary) 30%,
+          mat.get-theme-color($theme, primary, 20));
       color: mat.get-theme-color($theme, on-primary);
+
       mat-toolbar-row:nth-of-type(even) {
         background: mat.get-theme-color($theme, secondary, 10);
         color: mat.get-theme-color($theme, on-secondary);
       }
     }
+
     .sar-next {
       .big-and-red {
-        color: mat.get-theme-color($theme, tertiary, 60);
+        color: mat.get-theme-color($theme, secondary, 60);
       }
     }
   }
@@ -28,6 +28,7 @@
       .sar-next {
         font: mat.get-theme-typography($theme, display-small);
       }
+
       mat-toolbar-row:last-of-type {
         font: mat.get-theme-typography($theme, body-large);
       }

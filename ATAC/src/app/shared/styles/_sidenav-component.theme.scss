@@ -2,11 +2,13 @@
 
 @mixin colour($theme) {
   .INTC-sidenav {
-    background-color: rgba(mat.get-theme-color($theme, primary, 30), 0.97);
+    background-color: rgba(mat.get-theme-color($theme, primary, 40), 0.94);
     color: mat.get-theme-color($theme, on-primary);
 
     mat-spinner {
       --mdc-circular-progress-active-indicator-color: var(--sys-on-secondary);
     }
   }
+
+
 }

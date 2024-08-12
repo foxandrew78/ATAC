@@ -6,6 +6,7 @@
 @use "app/shared/styles/header-component.theme";
 @use "app/shared/styles/sidenav-component.theme";
 @use "app/shared/styles/icon-component.theme";
+@use "app/shared/styles/slide-toggle-component.theme";
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -32,10 +33,13 @@ $alternate: INTC-theme.$dark-theme;
   @include mat.tooltip-theme($theme);
   @include mat.paginator-theme($theme);
   @include mat.select-theme($theme);
+  @include mat.slide-toggle-theme($theme);
   @include header-component.colour($theme);
   @include header-component.typography($theme);
   @include sidenav-component.colour($theme);
   @include icon-component.colour($theme);
+  @include slide-toggle-component.colour($theme);
+  @include slide-toggle-component.typography($theme);
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.
@@ -58,17 +62,15 @@ body {
 }
 
 a {
-  color: mat.get-theme-color($theme, secondary, 90);
+  color: mat.get-theme-color($theme, on-primary);
 
   &:hover,
   &:active {
-    //background-color: #9965dd;
-    color: mat.get-theme-color($theme, on-primary);
+    color: mat.get-theme-color($theme, secondary, 90);
   }
 
   &.selected {
-    //background-color: #9965dd;
-    color: mat.get-theme-color($theme, tertiary, 60);
+    color: mat.get-theme-color($theme, secondary, 70);
   }
 
   font: inherit;

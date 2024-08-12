@@ -1,0 +1,14 @@
+@use "@angular/material" as mat;
+
+@mixin colour($theme) {
+    --mat-switch-label-text-color: var(--sys-on-primary);
+    --mdc-switch-selected-track-color: var(--sys-surface-container-low);
+    --mdc-switch-selected-handle-color: var(--sys-primary);
+    --mdc-switch-selected-icon-color: var(--sys-surface-container-low);
+
+    //--mat-switch-selected-track-outline-color: var(--sys-surface-container-low);
+}
+
+@mixin typography($theme) {
+    --mat-switch-label-text-size: 1.2rem;
+}

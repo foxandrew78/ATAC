@@ -9,7 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class AtacService {
   private httpClient = inject(HttpClient);
   dataSource = new MatTableDataSource<ATAC>([]);
-
+  getClosed = false;
   /*
   TODO
   removeData(id: number) {
@@ -44,6 +44,12 @@ export class AtacService {
   loadOpenATACs = () => {
     return this.fetchATAC(
       DATA_SERVER + 'atac',
+      'An error occured while fetching data from the server.'
+    );
+  };
+  loadClosedATACs = () => {
+    return this.fetchATAC(
+      DATA_SERVER + 'atac?getClosed=true',
       'An error occured while fetching data from the server.'
     );
   };

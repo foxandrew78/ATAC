@@ -97,7 +97,11 @@ export class ATACComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   fetchNewData() {
-    const subscription = this.atacService.loadOpenATACs().subscribe({
+    const loadFunction = this.atacService.getClosed
+      ? this.atacService.loadClosedATACs()
+      : this.atacService.loadOpenATACs();
+
+    const subscription = loadFunction.subscribe({
       error: (error: Error) => {
         this.backendError.set(error.message);
         this.fetchingData.set(false);
