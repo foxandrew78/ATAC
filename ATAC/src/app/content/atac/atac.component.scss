@@ -68,8 +68,8 @@ $highlight-color: #009dc8;
 
   &:nth-child(even of .row-main),
   &:nth-child(even of .row-detail) {
-    background-color: var(--sys-secondary-fixed-dim);
-    color: var(--sys-on-secondary-fixed);
+    background-color: var(--sys-inverse-primary);
+    color: var(--sys-on-primary-container);
   }
 
   &:nth-child(even of .row-detail),

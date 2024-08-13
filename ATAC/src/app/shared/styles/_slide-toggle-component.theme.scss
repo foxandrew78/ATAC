@@ -2,13 +2,23 @@
 
 @mixin colour($theme) {
     --mat-switch-label-text-color: var(--sys-on-primary);
+
     --mdc-switch-selected-track-color: var(--sys-surface-container-low);
+    --mdc-switch-selected-hover-track-color: var(--sys-surface-container-high);
+    --mdc-switch-selected-pressed-track-color: var(--sys-surface-container-high);
+    --mdc-switch-selected-focus-track-color: var(--sys-surface-container-low);
+
     --mdc-switch-selected-handle-color: var(--sys-primary);
+    --mdc-switch-selected-hover-handle-color: var(--sys-primary);
+    --mdc-switch-selected-pressed-handle-color: var(--sys-primary);
+    --mdc-switch-selected-focus-handle-color: var(--sys-primary);
+
     --mdc-switch-selected-icon-color: var(--sys-surface-container-low);
+    --mdc-switch-selected-hover-icon-color: var(--sys-surface-container-high);
 
     //--mat-switch-selected-track-outline-color: var(--sys-surface-container-low);
 }
 
 @mixin typography($theme) {
-    --mat-switch-label-text-size: 1.2rem;
+    --mat-switch-label-text-size: 1.1rem;
 }

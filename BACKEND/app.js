@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/atac", async (req, res) => {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  await new Promise((resolve) => setTimeout(resolve, 3000));
 
   //! For demo purposes only - to check error handling on client side
   //return res.status(401).json();

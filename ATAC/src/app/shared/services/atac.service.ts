@@ -100,6 +100,7 @@ export class AtacService {
             this.dataSource.data = data.sort(
               (a, b) => Date.parse(b.date_opened) - Date.parse(a.date_opened)
             );
+            this.dataSource.sort?.sortChange.emit();
             localStorage.setItem('openAtacData', JSON.stringify(data));
             localStorage.setItem(
               'openAtacLastRefresh',

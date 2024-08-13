@@ -12,7 +12,9 @@ export const routes: Routes = [
   {
     path: 'ATAC/new',
     loadComponent: () =>
-      import('./content/atac/atac.component').then((mod) => mod.ATACComponent),
+      import('./content/atac/atac-new/atac-new.component').then(
+        (mod) => mod.AtacNewComponent
+      ),
     title: titlePre + 'Create a new ATAC',
   },
   {

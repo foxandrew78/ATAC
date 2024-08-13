@@ -8,6 +8,13 @@
     mat-spinner {
       --mdc-circular-progress-active-indicator-color: var(--sys-on-secondary);
     }
+
+    a {
+
+      &.selected {
+        color: var(--sys-on-primary);
+      }
+    }
   }
 
 
