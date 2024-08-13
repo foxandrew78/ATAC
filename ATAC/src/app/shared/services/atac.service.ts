@@ -6,7 +6,6 @@ import { DATA_SERVER } from '../localization/constants';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator';
 
 @Injectable({ providedIn: 'root' })
 export class AtacService {

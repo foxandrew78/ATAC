@@ -9,8 +9,4 @@ import { Component, input } from '@angular/core';
 })
 export class AtacDetailComponent {
   id = input<string>();
-
-  ngOnInit() {
-    console.log(this.id());
-  }
 }

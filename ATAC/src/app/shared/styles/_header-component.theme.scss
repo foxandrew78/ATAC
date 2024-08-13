@@ -11,6 +11,19 @@
       mat-toolbar-row:nth-of-type(even) {
         background: mat.get-theme-color($theme, secondary, 10);
         color: mat.get-theme-color($theme, on-secondary);
+
+        a {
+          color: whitesmoke;
+
+          &:hover,
+          &:active {
+            color: mat.get-theme-color($theme, secondary, 90);
+          }
+
+          &.selected {
+            color: mat.get-theme-color($theme, secondary, 70);
+          }
+        }
       }
     }
 
