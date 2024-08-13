@@ -1,6 +1,6 @@
 <h3>ATAC settings</h3>
 <form class="toggle-form" [formGroup]="formGroup">
 
-    <mat-slide-toggle (change)="onShowClosedToggle()" formControlName="enableClosed">Show Closed
+    <mat-slide-toggle (change)="onShowClosedToggle($event)" formControlName="enableClosed">Show Closed
         ATACs</mat-slide-toggle>
 </form>

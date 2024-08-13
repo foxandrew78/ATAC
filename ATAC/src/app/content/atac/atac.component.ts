@@ -83,79 +83,60 @@ export class ATACComponent implements AfterViewInit, OnInit {
   private destroyRef = inject(DestroyRef);
 
   dataSource = this.atacService.dataSource;
-  displayedColumns: string[] = ['date_opened', 'device', 'problem_statement'];
+  displayedColumns: string[] = [
+    'date_opened',
+    'device',
+    'problem_statement',
+    'status',
+  ];
   displayedColumnsWithExpand: string[] = [...this.displayedColumns, 'expand'];
 
-  fetchingData = signal<boolean>(true);
-  backendError = signal<string>('');
-  searchATAC = new FormControl('');
+  fetchingData = this.atacService.fetchingData;
+  backendError = this.atacService.backendError;
+  searchATAC = this.atacService.searchATAC;
+  onClearSearch = this.atacService.onClearSearch;
+  getClosed = this.atacService.getClosed;
 
   id = input<string>();
   expandedId?: number;
 
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  fetchNewData() {
-    const loadFunction = this.atacService.getClosed
-      ? this.atacService.loadClosedATACs()
-      : this.atacService.loadOpenATACs();
+  ngOnInit() {}
 
-    const subscription = loadFunction.subscribe({
-      error: (error: Error) => {
-        this.backendError.set(error.message);
-        this.fetchingData.set(false);
-      },
-      next: (data) => {
-        this.dataSource.data = data.sort(
-          (a, b) => Date.parse(b.date_opened) - Date.parse(a.date_opened)
-        );
-        localStorage.setItem('atacData', JSON.stringify(data));
-        localStorage.setItem('atacLastRefresh', new Date().toUTCString());
-      },
-      complete: () => {
-        this.backendError.set('');
-        this.fetchingData.set(false);
-        this.searchATAC.enable();
-      },
-    });
-    this.destroyRef.onDestroy(() => {
-      subscription.unsubscribe();
-    });
-  }
-
-  ngOnInit() {
-    const localData = localStorage.getItem('atacData');
-
-    const lastRefresh =
-      (Date.now() -
-        (localStorage.getItem('atacLastRefresh')
-          ? new Date(localStorage.getItem('atacLastRefresh')!).getTime()
-          : Date.now())) /
-      60000;
-
-    if (localData && lastRefresh < 20) {
-      this.dataSource.data = JSON.parse(localData);
-      this.fetchingData.set(false);
-    } else {
-      this.onRefresh();
-    }
-  }
-
-  onRefresh() {
-    this.fetchingData.set(true);
-    this.searchATAC.disable();
-    this.fetchNewData();
-    this.onClearSearch();
-  }
-
+  //TODO - create a sort in service - check if it exists and if so, set the viewchild one equal to it.
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+
+    if (this.atacService.tableSort === this.sort) {
+      this.dataSource.sort = this.atacService.tableSort;
+    } else {
+      this.dataSource.sort = this.sort;
+    }
+
+    this.sort.sortChange.subscribe({
+      next: () => {
+        this.atacService.tableSort = this.sort;
+        this.dataSource.sort = this.sort;
+      },
+    });
+
     this.dataSource.filterPredicate = (data: ATAC, filter: string) =>
       data.device.toLowerCase().includes(filter) ||
       data.problem_statement.toLowerCase().includes(filter) ||
       data.detail.toLowerCase().includes(filter);
+
+    this.atacService.loadAtacs('open');
+    if (this.atacService.getClosed()) {
+      this.atacService.loadAtacs('closed');
+    }
+  }
+  onRefresh() {
+    this.atacService.loadAtacs('open', true);
+    if (this.atacService.getClosed()) {
+      this.atacService.loadAtacs('closed', true);
+    }
   }
 
   viewATAC(row: string) {
@@ -169,10 +150,5 @@ export class ATACComponent implements AfterViewInit, OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-  }
-
-  onClearSearch() {
-    this.dataSource.filter = '';
-    this.searchATAC.setValue('');
   }
 }

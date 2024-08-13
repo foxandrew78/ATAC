@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {
+  MatSlideToggleChange,
+  MatSlideToggleModule,
+} from '@angular/material/slide-toggle';
+import { AtacService } from '../../../../shared/services/atac.service';
 
 @Component({
   selector: 'app-atac-settings',
@@ -15,12 +19,24 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
   styleUrl: './atac-settings.component.scss',
 })
 export class AtacSettingsComponent {
-  checked: boolean = true;
+  private atacService = inject(AtacService);
+
   formGroup = new FormGroup({
-    enableClosed: new FormControl(false),
+    enableClosed: this.atacService.showClosedToggleSwitch,
   });
 
-  onShowClosedToggle() {
-    console.log(this.formGroup.controls.enableClosed.value);
+  onShowClosedToggle(event: MatSlideToggleChange) {
+    switch (event.checked) {
+      case true:
+        this.atacService.getClosed.set(true);
+        this.atacService.loadAtacs('closed');
+        break;
+      case false:
+        this.atacService.getClosed.set(false);
+        this.atacService.loadAtacs('open');
+        break;
+      default:
+        break;
+    }
   }
 }

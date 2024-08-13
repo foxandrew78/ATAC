@@ -150,6 +150,11 @@ th {
   }
 }
 
+.closed-status {
+  color: var(--sys-error);
+  font-weight: bold;
+}
+
 @media (min-width: 1200px) {
   .container {
     width: 80%;
