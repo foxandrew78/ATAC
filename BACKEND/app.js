@@ -26,9 +26,6 @@ app.get("/atac", async (req, res) => {
 
   const atacData = JSON.parse(fileContent);
   const { getClosed } = req.query;
-
-  console.log(getClosed);
-
   const atacSummaryData = atacData
     .map((atac) => {
       return {
