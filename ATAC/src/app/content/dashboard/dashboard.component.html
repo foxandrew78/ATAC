@@ -1,0 +1,193 @@
+<div class="flex-container">
+  <div class="error-wrapper flex-item">
+    <div class="header-container">
+      <div class="title-bar title-stocker">
+        <div class="title">Stocker Errors</div>
+        <!-- <div>
+          <button mat-icon-button><mat-icon>refresh</mat-icon></button>
+        </div> -->
+      </div>
+    </div>
+    <!-- <table class="error_table stocker_table">
+      <tr>
+        <td>15:45</td>
+        <td>SSR101</td>
+        <td>Intransit PROCESS LOAD</td>
+      </tr>
+      <tr>
+        <td>15:42</td>
+        <td>SSR405</td>
+        <td>Unexpected load appeared on manual input port</td>
+      </tr>
+      <tr>
+        <td>15:40</td>
+        <td>TRN1401A</td>
+        <td>FPS Purge Line Failure</td>
+      </tr>
+    </table> -->
+    <div class="stocker-table">
+      <table
+        mat-table
+        [dataSource]="stocker_error_dataSource"
+        class="mat-elevation-z8"
+      >
+        <ng-container matColumnDef="device">
+          <th mat-header-cell *matHeaderCellDef>Device</th>
+          <td mat-cell *matCellDef="let error">{{ error.device }}</td>
+        </ng-container>
+        <ng-container matColumnDef="error_text">
+          <th mat-header-cell *matHeaderCellDef>Error</th>
+          <td mat-cell *matCellDef="let error">{{ error.error_text }}</td>
+        </ng-container>
+        <ng-container matColumnDef="time">
+          <th mat-header-cell *matHeaderCellDef>Time</th>
+          <td mat-cell *matCellDef="let error">{{ error.error_time }}</td>
+        </ng-container>
+
+        <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
+
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsStocker"></tr>
+      </table>
+    </div>
+    <!-- </div>
+  <div class="errors flex-item"> -->
+    <div class="header-container">
+      <div class="title-bar">
+        <div class="title">OHV Errors</div>
+        <!-- <div>
+          <button mat-icon-button><mat-icon>refresh</mat-icon></button>
+        </div> -->
+      </div>
+    </div>
+    <!-- <table class="error_table stocker_table">
+      <tr>
+        <td>15:45</td>
+        <td>SSR101</td>
+        <td>Intransit PROCESS LOAD</td>
+      </tr>
+      <tr>
+        <td>15:42</td>
+        <td>SSR405</td>
+        <td>Unexpected load appeared on manual input port</td>
+      </tr>
+      <tr>
+        <td>15:40</td>
+        <td>TRN1401A</td>
+        <td>FPS Purge Line Failure</td>
+      </tr>
+    </table> -->
+    <div class="ohv-table">
+      <table
+        mat-table
+        [dataSource]="ohv_error_dataSource"
+        class="mat-elevation-z8"
+      >
+        <ng-container matColumnDef="device">
+          <th mat-header-cell *matHeaderCellDef>Device</th>
+          <td mat-cell *matCellDef="let error">{{ error.device }}</td>
+        </ng-container>
+        <ng-container matColumnDef="error_code">
+          <th mat-header-cell *matHeaderCellDef>Error</th>
+          <td mat-cell *matCellDef="let error">{{ error.error_code }}</td>
+        </ng-container>
+        <ng-container matColumnDef="error_text">
+          <th mat-header-cell *matHeaderCellDef>Error</th>
+          <td mat-cell *matCellDef="let error">{{ error.error_text }}</td>
+        </ng-container>
+        <ng-container matColumnDef="time">
+          <th mat-header-cell *matHeaderCellDef>Time</th>
+          <td mat-cell *matCellDef="let error">{{ error.error_time }}</td>
+        </ng-container>
+
+        <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsOHV"></tr>
+      </table>
+    </div>
+    <div class="header-container">
+      <div class="title-bar">
+        <div class="title">CLW Errors</div>
+        <!-- <div>
+            <button mat-icon-button><mat-icon>refresh</mat-icon></button>
+          </div> -->
+      </div>
+    </div>
+    <div class="clw-table">
+      <table
+        mat-table
+        [dataSource]="clw_error_dataSource"
+        class="mat-elevation-z8"
+      >
+        <ng-container matColumnDef="device">
+          <th mat-header-cell *matHeaderCellDef>Device</th>
+          <td mat-cell *matCellDef="let error">{{ error.device }}</td>
+        </ng-container>
+        <ng-container matColumnDef="error_code">
+          <th mat-header-cell *matHeaderCellDef>Error</th>
+          <td mat-cell *matCellDef="let error">{{ error.error_code }}</td>
+        </ng-container>
+        <ng-container matColumnDef="error_text">
+          <th mat-header-cell *matHeaderCellDef>Error</th>
+          <td mat-cell *matCellDef="let error">{{ error.error_text }}</td>
+        </ng-container>
+        <ng-container matColumnDef="time">
+          <th mat-header-cell *matHeaderCellDef>Time</th>
+          <td mat-cell *matCellDef="let error">{{ error.error_time }}</td>
+        </ng-container>
+
+        <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsCLW"></tr>
+        <tr class="mat-mdc-row" *matNoDataRow>
+          <td class="mat-mdc-cell" [attr.colspan]="displayedColumnsCLW.length">
+            There are no active CLW errors.
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="status-wrapper flex-item">
+    <div class="header-container">
+      <div class="title-bar title-stocker">
+        <div class="title">Equipment Status</div>
+        <!-- <div>
+          <button mat-icon-button><mat-icon>refresh</mat-icon></button>
+        </div> -->
+      </div>
+    </div>
+    <div class="equip-status-table">
+      <table
+        mat-table
+        [dataSource]="equipment_status_dataSource"
+        class="mat-elevation-z8"
+      >
+        <ng-container matColumnDef="time">
+          <th mat-header-cell *matHeaderCellDef>Time</th>
+          <td mat-cell *matCellDef="let status">{{ status.time }}</td>
+        </ng-container>
+        <ng-container matColumnDef="tool_id">
+          <th mat-header-cell *matHeaderCellDef>Tool ID</th>
+          <td mat-cell *matCellDef="let status">{{ status.tool_id }}</td>
+        </ng-container>
+        <ng-container matColumnDef="comm_status">
+          <th mat-header-cell *matHeaderCellDef>Comm Status</th>
+          <td mat-cell *matCellDef="let status">{{ status.comm_status }}</td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let status">{{ status.status }}</td>
+        </ng-container>
+        <ng-container matColumnDef="mode">
+          <th mat-header-cell *matHeaderCellDef>Mode</th>
+          <td mat-cell *matCellDef="let status">{{ status.mode }}</td>
+        </ng-container>
+        <ng-container matColumnDef="time_in_status">
+          <th mat-header-cell *matHeaderCellDef>Min in Status</th>
+          <td mat-cell *matCellDef="let status">{{ status.time_in_status }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsStatus"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsStatus"></tr>
+      </table>
+    </div>
+  </div>
+</div>

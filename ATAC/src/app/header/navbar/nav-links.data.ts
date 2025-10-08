@@ -4,8 +4,9 @@ export const LINKS_LIST: linksList[] = [
   { text: 'ATAC', destination: 'ATAC' },
   { text: 'ARCC', destination: 'ARCC' },
   { text: 'Passdown', destination: 'passdown' },
-  { text: 'Operations', destination: 'operations' },
-  { text: 'Engineering', destination: 'engineering' },
+  { text: 'Dashboard', destination: 'dashboard' },
+  // { text: 'Operations', destination: 'operations' },
+  // { text: 'Engineering', destination: 'engineering' },
 ];
 
 export const BUTTON_LIST: buttonList[] = [

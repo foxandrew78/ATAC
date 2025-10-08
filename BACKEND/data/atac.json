@@ -58,5 +58,15 @@
         "owner": "Keith Howard",
         "problem_statement": "J4 position errors",
         "detail": "RM having issues when travelling between shelf 1-10-22 and port 6 (OHV port). MU shows J4 error."
+    },
+    {
+        "id": 778,
+        "status": "open",
+        "device": "SSR456",
+        "date_opened": "2025-07-12T13:43:00.000Z",
+        "level": 1,
+        "owner": "Keith Howard",
+        "problem_statement": "J4 position errors",
+        "detail": "RM having issues when travelling between shelf 1-10-22 and port 6 (OHV port). MU shows J4 error."
     }
 ]

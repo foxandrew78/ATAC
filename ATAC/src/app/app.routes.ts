@@ -66,4 +66,12 @@ export const routes: Routes = [
       ),
     title: titlePre + 'Engineering',
   },
+  {
+    path: 'dashboard',
+    loadComponent: () =>
+      import('./content/dashboard/dashboard.component').then(
+        (mod) => mod.DashboardComponent
+      ),
+    title: titlePre + 'Dashboard',
+  },
 ];

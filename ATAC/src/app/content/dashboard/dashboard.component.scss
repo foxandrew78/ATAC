@@ -1,0 +1,182 @@
+@use "@angular/material" as mat;
+$breakpoint-tablet: 900px;
+
+@mixin cell-padding {
+    padding: 0.5em;
+    padding-left: 1.2em;
+    padding-right: 1.2em;
+}
+
+.container {
+    margin-top: 1em;
+    height: calc(100vh - 120px - 2em);
+    // background-color: teal;
+
+    display: flex;
+    flex-direction: column;
+    //column-gap: 2em;
+
+
+}
+
+
+.title-bar {
+    padding: 0.5rem;
+    margin-top: 2.5rem;
+    // padding-left: 0.5em;
+    //padding-right: 0.5em;
+    // text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    //padding-top: .5em;
+    //padding-bottom: .5em;
+    background-color: var(--sys-inverse-surface);
+    //background-color: rgb(45, 4, 139);
+    color: var(--sys-on-primary);
+
+}
+
+.title-stocker {
+    margin-top: 1rem;
+}
+
+.title {
+    font-size: 1.3em;
+    text-transform: uppercase;
+    flex: 1;
+}
+
+
+
+.mat-mdc-cell {
+    padding: 1rem;
+}
+
+.mat-mdc-row,
+.mat-mdc-header-row {
+    font-size: 1.3rem;
+    @include cell-padding();
+}
+
+
+
+.mat-column-device {
+    font-weight: bold;
+}
+
+.mat-column-error_text {
+    font-style: italic;
+}
+
+.mat-mdc-row {
+
+    &:nth-child(odd) {
+        background-color: var(--sys-primary-container);
+    }
+
+    &:nth-child(even) {
+        background-color: var(--sys-inverse-primary);
+    }
+}
+
+.mat-mdc-header-row {
+    font-weight: bold;
+}
+
+@keyframes blink {
+    0% {
+        color: red;
+    }
+
+    80% {
+        color: transparent;
+    }
+
+    100% {
+        color: red;
+    }
+}
+
+.stocker-table,
+.ohv-table {
+    .mat-mdc-row {
+        &:nth-child(1) {
+            color: red;
+            animation: blink 3s infinite steps(1, end);
+        }
+    }
+}
+
+.stocker-table,
+.ohv-table,
+.clw-table {
+    max-height: 30%;
+    overflow-y: auto;
+}
+
+.equip-status-table {
+    .mat-mdc-row {
+        &:nth-child(2) {
+            color: rgb(238, 103, 14);
+
+        }
+
+        &:nth-child(4) {
+            color: rgb(16, 31, 238);
+
+        }
+
+        &:nth-child(3) {
+            color: red;
+            font-weight: bold;
+            animation: blink 3s infinite steps(1, end);
+        }
+    }
+}
+
+
+
+.flex-container {
+    display: flex;
+    // 1. Mobile First: Default to single column stack
+    flex-direction: column;
+    gap: 1.5rem; // Space between items
+    padding: 1.5rem;
+    //background-color: teal;
+    // border-radius: 1rem;
+    margin-top: 1rem;
+
+    .error-wrapper {
+        background-color: var(--sys-error);
+    }
+
+    .status-wrapper {
+        background-color: var(--sys-primary);
+    }
+
+    .flex-item {
+        padding: 1rem;
+        padding-top: 0;
+
+        color: var(--sys-on-primary);
+        border: 1px solid #e0e0e0;
+        border-radius: 1rem;
+        // On mobile, items take full width (or fill the column container)
+        width: 100%;
+        text-align: center;
+        height: calc(100vh - 160px - 2em);
+    }
+
+    // 2. Media Query for two-column layout
+    @media (min-width: $breakpoint-tablet) {
+        // Switch to row direction for two columns
+        flex-direction: row;
+
+        .flex-item {
+            // Allow items to grow and share the space equally (two columns)
+            flex: 1;
+            width: auto; // Reset width defined above
+        }
+    }
+}
